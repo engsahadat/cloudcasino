@@ -14,14 +14,16 @@ class ImportUsers extends Command
      *
      * @var string
      */
-    protected $signature = 'users:import {path : Path to the exported users JSON file}';
+    protected $signature = 'users:import
+        {path : Path to the exported users JSON file}
+        {--fresh : Delete existing users and related user data before importing}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import users from a legacy Supabase JSON export without overwriting existing accounts';
+    protected $description = 'Import users from a legacy Supabase JSON export';
 
     public function handle(): int
     {
@@ -49,6 +51,18 @@ class ImportUsers extends Command
             return self::FAILURE;
         }
 
+        if ($this->option('fresh')) {
+            DB::transaction(function (): void {
+                DB::table('sessions')->delete();
+                DB::table('password_reset_tokens')->delete();
+                DB::table('users')->delete();
+            });
+
+            DB::statement('ALTER TABLE users AUTO_INCREMENT = 1');
+
+            $this->info('Deleted existing users and related user data.');
+        }
+
         $this->info('Found ' . count($records) . ' user records to process.');
 
         $created = 0;
@@ -69,6 +83,13 @@ class ImportUsers extends Command
                 continue;
             }
 
+            $passwordHash = trim((string) ($record['password_hash'] ?? ''));
+
+            if ($passwordHash === '') {
+                $errors[] = "Skipped record with missing password_hash (email: {$email})";
+                continue;
+            }
+
             if (isset($existingEmails[$email])) {
                 $skippedExistingEmail++;
                 continue;
@@ -82,7 +103,7 @@ class ImportUsers extends Command
             }
 
             try {
-                DB::transaction(function () use ($record, $email, $legacyId, &$existingEmails, &$existingLegacyIds, &$existingUsernames, &$created, &$usernameAdjusted) {
+                DB::transaction(function () use ($record, $email, $legacyId, $passwordHash, &$existingEmails, &$existingLegacyIds, &$existingUsernames, &$created, &$usernameAdjusted) {
                     $firstName = trim((string) ($record['first_name'] ?? ''));
                     $lastName = trim((string) ($record['last_name'] ?? ''));
                     $displayName = trim((string) ($record['display_name'] ?? ''));
@@ -136,6 +157,7 @@ class ImportUsers extends Command
                     }
 
                     $user->save();
+                    DB::table('users')->where('id', $user->id)->update(['password' => $passwordHash]);
 
                     $existingEmails[$email] = true;
                     if ($legacyId) {

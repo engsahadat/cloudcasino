@@ -260,11 +260,11 @@ const Homepage = () => {
           )}
         </div>
 
-        {/* Subtle grid overlay */}
-        <div className="absolute inset-0 opacity-[0.02]"
+        {/* Grid overlay matching screenshot */}
+        <div className="absolute inset-0 opacity-[0.04] pointer-events-none"
           style={{
-            backgroundImage: "linear-gradient(hsl(var(--foreground)) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground)) 1px, transparent 1px)",
-            backgroundSize: "80px 80px",
+            backgroundImage: "linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px)",
+            backgroundSize: "55px 55px",
           }}
         />
 
@@ -272,37 +272,67 @@ const Homepage = () => {
           <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
             <div className="flex-1 text-center lg:text-left min-w-0">
               <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={0}>
-                <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-5 py-2 text-xs font-semibold text-foreground backdrop-blur-sm shadow-lg shadow-primary/5">
-                  <Zap className="h-3.5 w-3.5 text-primary" /> {hero.badge_text}
+                <span className="inline-flex items-center gap-2 rounded-full border border-blue-500/30 bg-blue-500/10 px-5 py-2 text-xs font-semibold text-blue-200 backdrop-blur-sm shadow-lg shadow-blue-500/5">
+                  <Zap className="h-3.5 w-3.5 text-blue-400" /> {hero.badge_text}
                 </span>
               </motion.div>
 
-              <motion.h1 initial="hidden" animate="visible" variants={fadeUp} custom={1}
-                className="mt-8 font-display text-4xl font-black leading-[1.05] tracking-wider sm:text-5xl xl:text-7xl text-foreground">
-                {hero.title_line1}{" "}
-                <span className="gradient-text drop-shadow-[0_0_30px_hsl(230,80%,60%,0.3)]">{hero.title_highlight}</span>{" "}
-                <br className="hidden sm:block" />
-                {hero.title_line2}
+              <motion.h1
+                initial="hidden"
+                animate="visible"
+                variants={fadeUp}
+                custom={1}
+                style={{ fontFamily: "'Orbitron', sans-serif" }}
+                className="mt-6 text-4xl font-black leading-[1.1] tracking-wider sm:text-5xl xl:text-[68px] text-white select-none"
+              >
+                <div>YOUR WINNING</div>
+                <div className="bg-gradient-to-r from-[#00e5ff] via-[#8b5cf6] to-[#ec4899] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,229,255,0.4)]">
+                  JOURNEY
+                </div>
+                <div>STARTS HERE</div>
               </motion.h1>
 
               <motion.p initial="hidden" animate="visible" variants={fadeUp} custom={2}
-                className="mx-auto mt-6 max-w-lg text-base text-muted-foreground lg:mx-0 sm:text-lg leading-relaxed">
+                className="mx-auto mt-6 max-w-lg text-base text-slate-300 lg:mx-0 sm:text-lg leading-relaxed whitespace-pre-line">
                 {hero.subtitle}
               </motion.p>
 
-              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}
-                className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-6">
-                {hero.trust_items.map((item, i) => {
-                  const Icon = TRUST_ICONS[i % TRUST_ICONS.length];
+              <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={3}>
+                {(() => {
+                  const itemsToDisplay = (hero.trust_items && hero.trust_items.length >= 5) 
+                    ? hero.trust_items 
+                    : DEFAULT_LANDING_CONFIG.hero.trust_items;
                   return (
-                    <div key={i} className="flex items-center gap-2.5">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 border border-primary/20 shadow-inner">
-                        <Icon className="h-4.5 w-4.5 text-primary" />
+                    <div className="mt-8 flex flex-col gap-3 max-w-2xl mx-auto lg:mx-0">
+                      <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                        {itemsToDisplay.slice(0, 3).map((item, i) => {
+                          const Icon = TRUST_ICONS[i % TRUST_ICONS.length];
+                          return (
+                            <div key={i} className="flex items-center gap-2.5 rounded-xl border border-blue-500/20 bg-[#0e1424]/80 px-4 py-2.5 shadow-md backdrop-blur-sm transition-all hover:border-blue-500/40">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
+                                <Icon className="h-4 w-4" />
+                              </div>
+                              <span className="text-xs sm:text-sm font-semibold text-slate-200">{item.label}</span>
+                            </div>
+                          );
+                        })}
                       </div>
-                      <span className="text-sm font-medium text-foreground/80">{item.label}</span>
+                      <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3">
+                        {itemsToDisplay.slice(3).map((item, i) => {
+                          const Icon = TRUST_ICONS[(i + 3) % TRUST_ICONS.length];
+                          return (
+                            <div key={i} className="flex items-center gap-2.5 rounded-xl border border-blue-500/20 bg-[#0e1424]/80 px-4 py-2.5 shadow-md backdrop-blur-sm transition-all hover:border-blue-500/40">
+                              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-blue-500/15 text-blue-400">
+                                <Icon className="h-4 w-4" />
+                              </div>
+                              <span className="text-xs sm:text-sm font-semibold text-slate-200">{item.label}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
                     </div>
                   );
-                })}
+                })()}
               </motion.div>
             </div>
 

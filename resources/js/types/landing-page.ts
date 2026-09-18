@@ -87,11 +87,13 @@ export const DEFAULT_LANDING_CONFIG: LandingPageConfig = {
     title_line1: "YOUR WINNING",
     title_highlight: "JOURNEY",
     title_line2: "STARTS HERE",
-    subtitle: "Sweepstakes, fish games, slots & more — all in one place. Register now and start winning today.",
+    subtitle: "Sweepstakes, Fish Table, Slots & More - ALL IN ONE PLACE\nRegister now and start winning today.",
     trust_items: [
       { label: "Secure & Encrypted" },
       { label: "Fast Approval" },
       { label: "Reliable System" },
+      { label: "Instant Cashout - Instant Winnings" },
+      { label: "Redeemable Freeplay" },
     ],
   },
   stats_banner: {
@@ -177,6 +179,7 @@ export const DEFAULT_LANDING_CONFIG: LandingPageConfig = {
       { label: "Games", href: "#games" },
       { label: "Features", href: "#features" },
       { label: "Transfers", href: "#transfers" },
+      { label: "Frequently Question", href: "#faq" },
     ],
   },
 };

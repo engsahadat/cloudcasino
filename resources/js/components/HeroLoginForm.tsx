@@ -109,24 +109,24 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
       transition={{ delay: 0.3, duration: 0.5 }}
       className="w-full max-w-md"
     >
-      <div className="rounded-2xl border border-border/40 glass-card p-6 sm:p-8 shadow-2xl sm:max-w-none max-w-md mx-auto" style={{ boxShadow: 'var(--shadow-glow-strong)' }}>
+      <div className="rounded-2xl border border-indigo-500/30 bg-[#0f1426]/90 p-6 sm:p-8 shadow-[0_0_45px_rgba(79,70,229,0.25)] backdrop-blur-xl sm:max-w-none max-w-md mx-auto">
         {forgotMode ? (
           <>
             <button
               onClick={() => { setForgotMode(false); setForgotSent(false); setError(""); }}
-              className="flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors mb-4"
+              className="flex items-center gap-1 text-sm text-slate-400 hover:text-white transition-colors mb-4"
             >
               <ArrowLeft className="h-4 w-4" /> Back to login
             </button>
-            <h3 className="font-display text-lg font-bold tracking-wider text-center gradient-text mb-1">
+            <h3 className="font-display text-lg font-extrabold tracking-wider text-center text-white mb-1">
               RESET PASSWORD
             </h3>
-            <p className="text-xs text-muted-foreground text-center mb-5">
+            <p className="text-xs text-slate-400 text-center mb-5">
               {forgotSent ? "Check your email for a reset link." : "Enter your email and we'll send you a reset link."}
             </p>
             {error && (
-              <div className="mb-4 rounded-lg border border-destructive/50 bg-destructive/10 px-3 py-2 text-xs text-destructive flex items-start gap-2">
-                <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+              <div className="mb-4 rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2.5 text-xs text-rose-300 flex items-start gap-2">
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-rose-400" />
                 <span>{error}</span>
               </div>
             )}
@@ -138,14 +138,14 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
                     value={forgotEmail}
                     onChange={(e) => setForgotEmail(e.target.value)}
                     placeholder="your@email.com"
-                    className="w-full rounded-lg border border-input bg-muted/50 px-4 py-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                    className="w-full rounded-xl border border-slate-700/60 bg-[#141a2e] px-4 py-3 pr-10 text-sm text-white placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none transition-all"
                   />
-                  <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Mail className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
                 </div>
                 <button
                   type="submit"
                   disabled={forgotLoading}
-                  className="group w-full btn-glow rounded-xl gradient-bg py-3.5 text-sm font-bold text-primary-foreground shadow-xl shadow-primary/25 hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                  className="w-full rounded-xl bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
                 >
                   {forgotLoading && <Loader2 className="h-4 w-4 animate-spin" />}
                   Send Reset Link
@@ -155,10 +155,10 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
           </>
         ) : (
           <>
-            <h3 className="font-display text-lg font-bold tracking-wider text-center gradient-text mb-1">
+            <h3 className="font-display text-lg font-extrabold tracking-wider text-center text-white mb-1">
               LOGIN TO PLAY NOW
             </h3>
-            <p className="text-xs text-muted-foreground text-center mb-5">
+            <p className="text-xs text-slate-400 text-center mb-5">
               Win big with exciting sweepstakes, fish games &amp; slots online
             </p>
 
@@ -166,9 +166,9 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
               <motion.div
                 initial={{ opacity: 0, y: -6 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="mb-4 rounded-lg border border-destructive/50 bg-destructive/10 px-3 py-2 text-xs text-destructive flex items-start gap-2"
+                className="mb-4 rounded-xl border border-rose-500/40 bg-rose-500/10 px-3.5 py-2.5 text-xs text-rose-300 flex items-start gap-2"
               >
-                <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
+                <AlertTriangle className="h-4 w-4 mt-0.5 shrink-0 text-rose-400" />
                 <span>{error}</span>
               </motion.div>
             )}
@@ -176,20 +176,20 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="grid grid-cols-1 gap-3">
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground">Email or Username</label>
+                  <label className="text-xs font-semibold text-slate-300">Email or Username</label>
                   <div className="relative">
                     <input
                       type="text"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="your@email.com or username"
-                      className="w-full rounded-lg border border-input bg-muted/50 px-4 py-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                      className="w-full rounded-xl border border-slate-700/60 bg-[#141a2e] px-4 py-3 pr-10 text-sm text-white placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none transition-all"
                     />
-                    <Mail className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Mail className="absolute right-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
                   </div>
                 </div>
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-foreground">Password</label>
+                  <label className="text-xs font-semibold text-slate-300">Password</label>
                   <div className="relative">
                     <input
                       type={showPassword ? "text" : "password"}
@@ -198,15 +198,15 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
                       onKeyDown={handleCapsLock}
                       onKeyUp={handleCapsLock}
                       placeholder="••••••••"
-                      className="w-full rounded-lg border border-input bg-muted/50 px-4 py-3 pr-10 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary transition-colors"
+                      className="w-full rounded-xl border border-slate-700/60 bg-[#141a2e] px-4 py-3 pr-10 text-sm text-white placeholder:text-slate-500 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 focus:outline-none transition-all"
                     />
-                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors">
+                    <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white transition-colors">
                       {showPassword ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
                     </button>
                   </div>
                   <AnimatePresence>
                     {capsLock && (
-                      <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="flex items-center gap-1.5 text-xs text-yellow-400">
+                      <motion.p initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }} className="flex items-center gap-1.5 text-xs text-amber-400">
                         <AlertTriangle className="h-3 w-3" /> Caps Lock is on
                       </motion.p>
                     )}
@@ -214,15 +214,15 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <label className="flex items-center gap-2 cursor-pointer">
-                  <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="h-4 w-4 rounded border-input bg-muted/50 accent-primary" />
-                  <span className="text-xs text-muted-foreground">Remember me</span>
+              <div className="flex items-center justify-between pt-1">
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} className="h-4 w-4 rounded border-slate-700 bg-[#141a2e] accent-indigo-500 cursor-pointer" />
+                  <span className="text-xs text-slate-400">Remember me</span>
                 </label>
                 <button
                   type="button"
                   onClick={() => { setForgotMode(true); setError(""); setForgotSent(false); setForgotEmail(email.includes("@") ? email : ""); }}
-                  className="text-xs font-medium text-primary hover:underline"
+                  className="text-xs font-medium text-blue-400 hover:text-blue-300 hover:underline transition-colors"
                 >
                   Forgot password?
                 </button>
@@ -231,7 +231,7 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
               <button
                 type="submit"
                 disabled={loading}
-                className="group w-full btn-glow rounded-xl gradient-bg py-3.5 text-sm font-bold text-primary-foreground shadow-xl shadow-primary/25 hover:opacity-90 transition-all disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full rounded-xl bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 py-3.5 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all disabled:opacity-50 flex items-center justify-center gap-2 cursor-pointer"
               >
                 {loading ? (
                   <>
@@ -240,7 +240,7 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
                   </>
                 ) : (
                   <>
-                    Login & Play
+                    <span>Login &amp; Play</span>
                     <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </>
                 )}
@@ -248,20 +248,20 @@ const HeroLoginForm = ({ onSwitchToRegister }: HeroLoginFormProps) => {
             </form>
 
             {/* Trust Badges */}
-            <div className="mt-5 flex items-center justify-center gap-4 border-t border-border/30 pt-5">
+            <div className="mt-6 flex items-center justify-around border-t border-slate-800/80 pt-5">
               {TRUST_BADGES.map(({ icon: Icon, label }) => (
                 <div key={label} className="flex flex-col items-center gap-1.5">
-                  <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10">
-                    <Icon className="h-3.5 w-3.5 text-primary" />
+                  <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-500/10 border border-blue-500/20">
+                    <Icon className="h-4 w-4 text-blue-400" />
                   </div>
-                  <span className="text-[10px] font-medium text-muted-foreground">{label}</span>
+                  <span className="text-[10px] sm:text-[11px] font-medium text-slate-400">{label}</span>
                 </div>
               ))}
             </div>
 
-            <p className="mt-4 text-center text-xs text-muted-foreground">
+            <p className="mt-5 text-center text-xs text-slate-400">
               Don't have an account?{" "}
-              <button onClick={onSwitchToRegister} className="text-primary hover:underline font-medium">
+              <button onClick={onSwitchToRegister} className="text-blue-400 hover:text-blue-300 font-semibold hover:underline transition-colors">
                 Register Now
               </button>
             </p>
